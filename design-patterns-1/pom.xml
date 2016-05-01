@@ -4,4 +4,17 @@
   <artifactId>design-patterns-1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Curso Design Patterns Java I: Boas práticas de programação</name>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
