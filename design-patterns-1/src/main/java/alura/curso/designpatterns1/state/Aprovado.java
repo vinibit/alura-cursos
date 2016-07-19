@@ -1,10 +1,13 @@
 package alura.curso.designpatterns1.state;
 
 public class Aprovado implements EstadoDeUmOrcamento {
-
+	private boolean descontoAplicado = false;
+	
 	@Override
 	public void aplicaDescontoExtra(Orcamento orcamento) {
+		if (descontoAplicado) throw new RuntimeException("Desconto já aplicado!"); 
 		orcamento.desconta(0.02);
+		descontoAplicado = true;
 	}
 
 	@Override
