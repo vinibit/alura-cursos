@@ -1,6 +1,6 @@
-package alura.curso.designpatterns1.strategy.client;
+ package alura.curso.designpatterns1.strategy.client;
 
-import alura.curso.designpatterns1.model.imposto.Orcamento;
+import alura.curso.designpatterns1.model.orcamento.Orcamento;
 import alura.curso.designpatterns1.strategy.Imposto;
 
 /**

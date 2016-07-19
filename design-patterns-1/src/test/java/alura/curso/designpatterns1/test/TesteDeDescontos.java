@@ -5,8 +5,8 @@ import alura.curso.designpatterns1.chainofresponsability.desconto.DescontoPorMai
 import alura.curso.designpatterns1.chainofresponsability.desconto.DescontoPorMaisQueQuinhentosReais;
 import alura.curso.designpatterns1.chainofresponsability.desconto.DescontoPorVendaCasada;
 import alura.curso.designpatterns1.chainofresponsability.desconto.SemDesconto;
-import alura.curso.designpatterns1.model.desconto.Item;
-import alura.curso.designpatterns1.model.desconto.Orcamento;
+import alura.curso.designpatterns1.model.orcamento.Item;
+import alura.curso.designpatterns1.model.orcamento.Orcamento;
 
 public class TesteDeDescontos {
 	public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package alura.curso.designpatterns1.chainofresponsability.desconto;
 
-import alura.curso.designpatterns1.model.desconto.Orcamento;
+import alura.curso.designpatterns1.model.orcamento.Orcamento;
 
 public class DescontoPorMaisQueQuinhentosReais implements Desconto {
 	private Desconto proximo;

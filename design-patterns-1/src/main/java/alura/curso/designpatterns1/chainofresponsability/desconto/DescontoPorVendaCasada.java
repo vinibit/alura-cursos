@@ -1,7 +1,7 @@
 package alura.curso.designpatterns1.chainofresponsability.desconto;
 
-import alura.curso.designpatterns1.model.desconto.Item;
-import alura.curso.designpatterns1.model.desconto.Orcamento;
+import alura.curso.designpatterns1.model.orcamento.Item;
+import alura.curso.designpatterns1.model.orcamento.Orcamento;
 
 public class DescontoPorVendaCasada implements Desconto {
 	private Desconto proximo;

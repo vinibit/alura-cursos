@@ -1,6 +1,6 @@
 package alura.curso.designpatterns1.strategy;
 
-import alura.curso.designpatterns1.model.imposto.Orcamento;
+import alura.curso.designpatterns1.model.orcamento.Orcamento;
 
 /**
  * Crie o imposto que se chama ICCC, que retorna 5% do valor total 
@@ -9,7 +9,15 @@ import alura.curso.designpatterns1.model.imposto.Orcamento;
  * @author Vini
  *
  */
-public class ICCC implements Imposto {
+public class ICCC extends Imposto {
+
+	public ICCC() {
+		super();
+	}
+	
+	public ICCC(Imposto outroImposto) {
+		super(outroImposto);
+	}
 
 	@Override
 	public double calcula(Orcamento orcamento) {
@@ -20,7 +28,7 @@ public class ICCC implements Imposto {
 			calculo = orcamento.getValor() * 0.07;
 		else  
 			calculo = orcamento.getValor() * 0.08 + 30;
-		return calculo;
+		return calculo + calculoDoOutroImposto(orcamento);
 	}
 
 }

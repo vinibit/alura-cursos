@@ -1,6 +1,6 @@
 package alura.curso.designpatterns1.test;
 
-import alura.curso.designpatterns1.model.imposto.Orcamento;
+import alura.curso.designpatterns1.model.orcamento.Orcamento;
 import alura.curso.designpatterns1.strategy.ICCC;
 import alura.curso.designpatterns1.strategy.client.CalculadoraDeImposto;
 
