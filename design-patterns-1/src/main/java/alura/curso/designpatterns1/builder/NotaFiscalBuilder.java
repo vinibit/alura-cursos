@@ -14,6 +14,10 @@ public class NotaFiscalBuilder {
 	private double impostos;
 	private String observacoes;
 	private LocalDate data;
+		
+	public NotaFiscalBuilder() {
+		this.data = LocalDate.now();
+	}
 
 	public NotaFiscalBuilder paraEmpresa(String razaoSocial) {
 		this.razaoSocial = razaoSocial;
@@ -30,8 +34,15 @@ public class NotaFiscalBuilder {
 		return this;
 	}
 
+	/*
 	public NotaFiscalBuilder naDataAtual() {
 		this.data = LocalDate.now();
+		return this;
+	}
+	*/
+	
+	public NotaFiscalBuilder naData(LocalDate data) {
+		this.data = data;
 		return this;
 	}
 
