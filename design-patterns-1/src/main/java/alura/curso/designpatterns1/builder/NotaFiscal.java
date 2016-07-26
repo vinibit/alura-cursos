@@ -23,4 +23,8 @@ public class NotaFiscal {
 		this.observacoes = observacoes;
 		this.itens = itens;
 	}
+	
+	public double getValorBruto() {
+		return valorBruto;
+	}
 }
