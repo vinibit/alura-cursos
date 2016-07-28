@@ -14,10 +14,10 @@ hs_err_pid*
 # Eclipse #
 .project
 .classpath
-.settings/
 .metadata/
 .recommenders/
 Servers/*
+**/.settings/*
 **/build/*
 
 # Maven #
