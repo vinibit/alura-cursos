@@ -16,7 +16,7 @@ hs_err_pid*
 .classpath
 .metadata/
 .recommenders/
-/Servers/*
+/Servers/
 **/.settings/*
 **/build/*
 
