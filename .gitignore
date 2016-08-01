@@ -17,8 +17,8 @@ hs_err_pid*
 .metadata/
 .recommenders/
 /Servers/
-**/.settings/*
-**/build/*
+**/.settings/
+**/build/
 
 # Maven #
 /target/
