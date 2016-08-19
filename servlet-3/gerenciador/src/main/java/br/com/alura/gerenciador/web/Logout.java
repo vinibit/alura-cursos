@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Logout
@@ -27,8 +28,8 @@ public class Logout extends HttpServlet {
 			return;
 		}
 		
-		usuarioLogado.setMaxAge(0);
-		response.addCookie(usuarioLogado);
+		HttpSession session = request.getSession();
+		session.removeAttribute("usuario.logado");
 		
 		writer.println("Logout efetuado.");
 		writer.println("</body></html>");
