@@ -26,12 +26,12 @@ public class FiltroAuditoria implements Filter {
 		String usuario = "[deslogado]";
 		
 		HttpSession session = httpRequest.getSession();
-		Usuario usuarioLogado = (Usuario) session.getAttribute("usuario.logado");
+		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 		
 		if (usuarioLogado != null) {
 			usuario = usuarioLogado.getEmail();
 		}
-		System.out.println("Usu·rio " + usuario  + " acessando a URI " + uri );
+		System.out.println("Usu√°rio " + usuario  + " acessando a URI " + uri );
 		
 		chain.doFilter(httpRequest, response);
 	}
