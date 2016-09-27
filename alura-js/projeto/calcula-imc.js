@@ -21,15 +21,12 @@ function paraCadaLinha(linhas, executa) {
 	};	
 }
 
-var botao = document.getElementById("calcula-imcs");
-botao.addEventListener("click", function() {
-	var linhas = document.getElementsByClassName("paciente");
-	paraCadaLinha(linhas, function(linha) {
-		var paciente = montaPaciente(linha);		
-		linha.getElementsByClassName("info-imc")[0].textContent = paciente.pegaImc();
-	})
+document.getElementById("calcula-imcs").addEventListener("click", function() {
+		var linhas = document.getElementsByClassName("paciente");
+		paraCadaLinha(linhas, function(linha) {
+			var paciente = montaPaciente(linha);		
+			linha.getElementsByClassName("info-imc")[0].textContent = paciente.pegaImc();
+		})
 });
-botao.addEventListener("click", function() {
-	console.log("Calculando todos IMCs...");
-});
+
 
