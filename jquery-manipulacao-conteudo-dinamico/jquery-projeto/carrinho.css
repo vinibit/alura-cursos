@@ -37,6 +37,9 @@ td {
 	border-bottom: 1px solid #ddd;
 }
 
+.recuperado{
+    background:#FE0;
+}
 
 .propaganda td {
 	background: #9F0;
