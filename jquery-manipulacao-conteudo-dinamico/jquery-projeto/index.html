@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr class="row">
 					<td><img src="imagens/tablet.jpg"></td>
 					<td>Tablet miPad 18</td>
 					<td class="subquantidade">1</td>
@@ -24,7 +24,7 @@
 					<td class="sub-total">499.99</td>
 					<td><a href="" class="remove-item">(Remover)</a></td>
 				</tr>
-				<tr>
+				<tr class="row">
 					<td><img src="imagens/telefone.png"></td>
 					<td>Telefone miPhone 18</td>
 					<td class="subquantidade">2</td>
@@ -32,7 +32,7 @@
 					<td class="sub-total">399.98</td>
 					<td><a href="" class="remove-item">(Remover)</a></td>
 				</tr>
-				<tr>
+				<tr class="row">
 					<td><img src="imagens/sapato.jpg"></td>
 					<td>Sapato</td>
 					<td class="subquantidade">1</td>
@@ -40,7 +40,7 @@
 					<td class="sub-total">99.99</td>
 					<td><a href="" class="remove-item">(Remover)</a></td>
 				</tr>
-				<tr>
+				<tr class="row">
 					<td><img src="imagens/monitor.jpg"></td>
 					<td>Monitor Sam 21</td>
 					<td class="subquantidade">1</td>
@@ -48,7 +48,7 @@
 					<td class="sub-total">299.00</td>
 					<td><a href="" class="remove-item">(Remover)</a></td>
 				</tr>
-				<tr>
+				<tr class="row">
 					<td><img src="imagens/teclado.jpg"></td>
 					<td>Teclado com fio preto </td>
 					<td class="subquantidade">1</td>
@@ -56,15 +56,35 @@
 					<td class="sub-total">100.00</td>
 					<td><a href="" class="remove-item">(Remover)</a></td>
 				</tr>
+			</tbody>
+		</table>
+	
+		<div>
+			<input type="button" value="Undo" class="undo">
+		</div>
+
+		<div>
+			Valor total: R$<span class="valor-total">0</span>
+			<br/>
+			Quantidade de itens distintos: <span class="quantidade-de-itens">0</span>
+		</div>
+
+	</div>
+
+	<div class="carrinho">
+		<h2>Carrinho entrega em Vitoria</h2>
+		<table>
+			<thead>
 				<tr>
-					<td><img src="imagens/mouse.jpg"></td>
-					<td>Mouse wireless</td>
-					<td class="subquantidade">1</td>
-					<td>199.00</td>
-					<td class="sub-total">199.00</td>
-					<td><a href="" class="remove-item">(Remover)</a></td>
+					<td></td>
+					<td>Nome</td>
+					<td>Quantidade</td>
+					<td>Valor</td>
+					<td>Total</td>
 				</tr>
-				<tr>
+			</thead>
+			<tbody>
+				<tr class="row"s>
 					<td><img src="imagens/camiseta.jpg"></td>
 					<td>Camiseta G</td>
 					<td class="subquantidade">3</td>
@@ -75,17 +95,53 @@
 			</tbody>
 		</table>
 	
+		<div>
+			<input type="button" value="Undo" class="undo">
+		</div>
+
+		<div>
+			Valor total: R$<span class="valor-total">0</span>
+			<br/>
+			Quantidade de itens distintos: <span class="quantidade-de-itens">0</span>
+		</div>
+
 	</div>
 
-	<div>
-        <input type="button" value="Undo" id="undo">
-	</div>
+	<div class="carrinho">
+		<h2>Carrinho entrega em Rio de Janeiro</h2>
+		<table>
+			<thead>
+				<tr>
+					<td></td>
+					<td>Nome</td>
+					<td>Quantidade</td>
+					<td>Valor</td>
+					<td>Total</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="row">
+					<td><img src="imagens/mouse.jpg"></td>
+					<td>Mouse wireless</td>
+					<td class="subquantidade">1</td>
+					<td>199.00</td>
+					<td class="sub-total">199.00</td>
+					<td><a href="" class="remove-item">(Remover)</a></td>
+				</tr>			
+			</tbody>
+		</table>
+	
+		<div>
+			<input type="button" value="Undo" class="undo">
+		</div>
 
-	<div>
-        Valor total: R$<span id="valor-total">0</span>
-		<br/>
-        Quantidade de itens distintos: <span id="quantidade-de-itens">0</span>
-    </div>
+		<div>
+			Valor total: R$<span class="valor-total">0</span>
+			<br/>
+			Quantidade de itens distintos: <span class="quantidade-de-itens">0</span>
+		</div>
+
+	</div>
 
 	<script src="jquery-3.1.1.min.js"></script>
 	<script src="carrinho.js"></script>	
