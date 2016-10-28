@@ -35,7 +35,6 @@ var removeItem = function (event) {
     $(this).closest("tr").hide();
     atualizaDados();
 }
-$(".remove-item").click(removeItem);
 
 var undo = function () {
     var carrinho = $(this).closest(".carrinho");
@@ -45,7 +44,22 @@ var undo = function () {
     hiddenRows.show();
     atualizaDados();
 }
-$(".undo").click(undo);
+
+var escondePropagandas = function(event) {
+    event.preventDefault();
+    $(".propaganda").fadeOut();
+}
+
+var mostraPropagandas = function(event) {
+    event.preventDefault();
+    $(".propaganda").fadeIn();
+}
+
+var alternaPropagandas = function(event) {
+    event.preventDefault();
+    $(".propaganda").fadeToogle();
+    $(".alterna-propaganda").toggle();
+}
 
 var aposInicializado = function () {
     atualizaDados();
@@ -54,6 +68,19 @@ var aposInicializado = function () {
         carrinho.find("tr:nth-child(3n), tr:last").each(function() {
              umaPropaganda().insertAfter($(this));
         })
-    });    
+    });
+    $(".row").hover(
+        function() {
+            $(this).addClass("hovering");
+        },
+        function() {
+            $(this).removeClass("hovering");
+        }
+    )
+    $(".remove-item").click(removeItem);
+    $(".undo").click(undo);        
+    //$("#esconde-propagandas").click(alternaPropagandas);
+    //$("#mostra-propagandas").click(alternaPropagandas);
+    $(".alterna-propagandas").click(alternaPropagandas);
 }
 $(aposInicializado);    
