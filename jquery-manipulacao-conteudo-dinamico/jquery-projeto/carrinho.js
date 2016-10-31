@@ -38,8 +38,8 @@ var removeItem = function (event) {
 
 var undo = function () {
     var carrinho = $(this).closest(".carrinho");
-    carrinho.find("tr:visible").removeClass("recuperado");
-    var hiddenRows = carrinho.find("tr:hidden");
+    carrinho.find(".row:visible").removeClass("recuperado");
+    var hiddenRows = carrinho.find(".row:hidden");
     hiddenRows.addClass("recuperado");
     hiddenRows.show();
     atualizaDados();
@@ -57,8 +57,8 @@ var mostraPropagandas = function(event) {
 
 var alternaPropagandas = function(event) {
     event.preventDefault();
-    $(".propaganda").fadeToogle();
-    $(".alterna-propaganda").toggle();
+    $(".propaganda").fadeToggle();
+    $(".alterna-propagandas").toggle();
 }
 
 var aposInicializado = function () {
@@ -72,8 +72,10 @@ var aposInicializado = function () {
     $(".row").hover(
         function() {
             $(this).addClass("hovering");
+            $(this).find(".remove-item").fadeIn();
         },
         function() {
+            $(this).find(".remove-item").fadeOut();
             $(this).removeClass("hovering");
         }
     )
