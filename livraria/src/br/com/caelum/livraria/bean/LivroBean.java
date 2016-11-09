@@ -2,8 +2,12 @@ package br.com.caelum.livraria.bean;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
@@ -18,6 +22,11 @@ public class LivroBean {
 
 	public Livro getLivro() {
 		return livro;
+	}
+	
+	public void alterar(Livro livro) {
+		System.out.println("Carregando livro " + livro.getTitulo());
+		this.livro = livro;
 	}
 
 	public Integer getAutorId() {
@@ -39,19 +48,40 @@ public class LivroBean {
 	public List<Livro> getLivros() {
 		return new DAO<Livro>(Livro.class).listaTodos(); 
 	}
+	
+	public void comecaComDigitoUm(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		if (!value.toString().startsWith("1"))
+			throw new ValidatorException(new FacesMessage("Valor do ISBN inválido!"));
+	}
+	 
 	public void gravar() {
-		System.out.println("Gravando livro " + livro.getTitulo());
-
 		if (livro.getAutores().isEmpty()) {
-			throw new RuntimeException("Livro deve ter pelo menos um Autor.");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage("", new FacesMessage("Livro deve ter pelo menos um Autor."));
+			return;
 		}
-
-		new DAO<Livro>(Livro.class).adiciona(livro);
+		
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		if (livro.getId() == null) {
+			dao.adiciona(livro);
+		} else {
+			dao.atualiza(livro);
+		}
+		
 		livro = new Livro();
 	}
 
 	public void gravarAutor() {
 		Autor autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
 		livro.adicionaAutor(autor);
+	}
+	
+	public void remover(Livro livro) {
+		System.out.println("Removendo livro " + livro.getTitulo());
+		new DAO<Livro>(Livro.class).remove(livro);
+	}
+	
+	public void removerAutorLivro(Autor autor) {
+		livro.removerAutor(autor);
 	}
 }
