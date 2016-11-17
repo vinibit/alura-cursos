@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 	
 <ui:composition template="/_template.xhtml">
+	<f:metadata>
+		<f:viewParam name="livroId" value="#{livroBean.livro.id}" />
+		<f:viewAction action="#{livroBean.carregarPelaId}" if="#{not empty param['livroId']}" />		
+	</f:metadata>
+	
 	<ui:define name="titulo">Novo Livro</ui:define>
 	<ui:define name="conteudo">
 
@@ -21,6 +27,10 @@
 						<f:validateLength maximum="40" />
 						<f:ajax event="blur" render="messages" />
 					</h:inputText>
+					
+					<label for="title">Title:</label>
+					<input type="text" name="email"
+						jsf:id="title" jsf:value="#{livroBean.livro.titulo}" />
 
 					<h:outputLabel value="ISBN:" for="isbn" />
 					<h:inputText id="isbn" value="#{livroBean.livro.isbn}"

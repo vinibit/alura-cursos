@@ -84,4 +84,10 @@ public class LivroBean {
 	public void removerAutorLivro(Autor autor) {
 		livro.removerAutor(autor);
 	}
+	
+	public void carregarPelaId() {
+		this.livro = new DAO<Livro>(Livro.class).buscaPorId(this.livro.getId());
+		if (this.livro == null)
+			this.livro = new Livro();
+	}
 }
