@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui" >
 
 <ui:composition template="/_template.xhtml">
 
@@ -12,33 +13,45 @@
 		<f:viewAction action="#{autorBean.carregarPelaId}" if="#{not empty param['autorId']}" />
 	</f:metadata>
 	
-	<ui:define name="titulo">Novo Autor</ui:define>
+	<ui:define name="titulo">
+		<p:outputPanel>Novo Autor</p:outputPanel>
+	</ui:define>
 	<ui:define name="conteudo">
-		<h:form>
-			<fieldset>
-				<legend>Dados do Autor</legend>
-				<h:panelGrid columns="2">
-					<h:outputLabel value="Nome:" for="nome" />
-					<h:inputText id="nome" value="#{autorBean.autor.nome}" />
+		<h:form id="form">
+			<p:fieldset legend="Dados do Autor">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{autorBean.autor.nome}" 
+						required="true" requiredMessage="Nome não infomado."/>
+					<p:message id="nomeMessage" for="nome" />
 					
-					<h:outputLabel value="Email:" for="email" />
-					<h:inputText id="email" value="#{autorBean.autor.email}" >
-						<f:passThroughAttribute name="type" value="email" />
-					</h:inputText>
+					<p:outputLabel value="Email:" for="email" />
+					<p:inputText id="email" value="#{autorBean.autor.email}" 
+						required="true" requiredMessage="Email não informado." validatorMessage="Email inválido.">
+						<f:attribute name="type" value="email" />
+						<f:validateRegex pattern="([\w-\.]+)@([\w]+)((?:\.[a-z]{2,4})+)" />
+						<f:ajax event="blur" render="emailMessage" />
+					</p:inputText>
+					<p:message id="emailMessage" for="email" />
 					
-					<h:commandButton value="Gravar" action="#{autorBean.gravar}" />
+					<p:commandButton value="Gravar" action="#{autorBean.gravar}"
+						process="@form" update="@form" />
 				</h:panelGrid>
-			</fieldset>
-			<h:dataTable value="#{autorBean.autores}" var="autor">
-				<h:column>
-					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{autor.nome}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">Remover</f:facet>
-					<h:commandLink value="Remover" action="#{autorBean.remover(autor)}" />
-				</h:column>
-			</h:dataTable>
+			</p:fieldset>
+			
+			<p:spacer height="2px"/>
+		</h:form>
+		<h:form id="data">
+			<p:dataList id="autores" value="#{autorBean.autores}" var="autor" type="definition">
+				<f:facet name="header">Autores</f:facet>
+				<p:commandButton action="#{autorBean.alterar(autor)}" title="Alterar"
+					update=":form" 
+					icon="fa fa-fw fa-edit"/>
+				<p:commandButton action="#{autorBean.remover(autor)}" title="Remover"
+					update="data" 
+					icon="fa fa-fw fa-remove"/> 
+				<h:outputText value="#{autor.nome}" style="display:inline-block" />
+			</p:dataList>
 		</h:form>
 	</ui:define>
 	<ui:define name="rodape">autor.xhtml</ui:define>

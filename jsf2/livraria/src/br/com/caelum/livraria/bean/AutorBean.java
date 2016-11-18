@@ -25,13 +25,23 @@ public class AutorBean {
 
 	public RedirectView gravar() {
 		System.out.println("Gravando autor " + autor.getNome());
-		new DAO<Autor>(Autor.class).adiciona(autor);
+		DAO<Autor> dao = new DAO<Autor>(Autor.class);
+		if (autor.getId() == null) {
+			dao.adiciona(autor);
+		} else {
+			dao.atualiza(autor);
+		}
+		
 		autor = new Autor();
 		return new RedirectView("livro");
 	}
 	
 	public void remover(Autor autor) {
 		new DAO<Autor>(Autor.class).remove(autor);
+	}
+	
+	public void alterar(Autor autor) {
+		this.autor = autor;
 	}
 	
 	public void carregarPelaId() {
