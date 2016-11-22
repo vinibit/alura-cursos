@@ -1,6 +1,8 @@
 package br.com.caelum.livraria.bean;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,6 +14,7 @@ import javax.faces.validator.ValidatorException;
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.modelo.LivroDataModel;
 
 @ManagedBean
 @ViewScoped
@@ -19,6 +22,9 @@ public class LivroBean {
 
 	private Livro livro = new Livro();
 	private Integer autorId;
+	private List<Livro> livros;
+	private LivroDataModel livroDataModel = new LivroDataModel();
+	private List<String> generos = Arrays.asList("Romance", "Drama", "Ação");
 
 	public Livro getLivro() {
 		return livro;
@@ -46,11 +52,21 @@ public class LivroBean {
 	}
 	
 	public List<Livro> getLivros() {
-		return new DAO<Livro>(Livro.class).listaTodos(); 
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		if (livros == null) livros = dao.listaTodos(); 
+		return livros;
+	}
+	
+	public LivroDataModel getLivroDataModel() {
+		return livroDataModel;
+	}
+	
+	public List<String> getGeneros() {
+		return generos;
 	}
 	
 	public void comecaComDigitoUm(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		if (!value.toString().startsWith("1"))
+		if (!value.toString().startsWith("9"))
 			throw new ValidatorException(new FacesMessage("Valor do ISBN inválido!"));
 	}
 	 
@@ -67,6 +83,7 @@ public class LivroBean {
 		} else {
 			dao.atualiza(livro);
 		}
+		livros = dao.listaTodos();
 		
 		livro = new Livro();
 	}
@@ -89,5 +106,23 @@ public class LivroBean {
 		this.livro = new DAO<Livro>(Livro.class).buscaPorId(this.livro.getId());
 		if (this.livro == null)
 			this.livro = new Livro();
+	}
+	
+	public boolean precoMenor(Object valor, Object filtro, Locale locale) {
+		if (filtro == null) return true;
+		String texto = filtro.toString().trim();
+		
+		if (texto.isEmpty()) return true;
+		
+		if (valor == null) return false;
+		
+		try {
+			Double precoTexto = Double.valueOf(texto);
+			Double precoValor = (Double) valor;
+			
+			return precoValor.compareTo(precoTexto) < 0;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 }

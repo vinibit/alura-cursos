@@ -1,9 +1,14 @@
 package br.com.caelum.livraria.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 public class DAO<T> {
 
@@ -88,6 +93,59 @@ public class DAO<T> {
 
 		em.close();
 		return lista;
+	}
+	
+	public List<T> listaTodosPaginada(int firstResult, int maxResults, String coluna, String valor) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
+		Root<T> root = query.from(classe);
+		
+		if (valor != null)
+			query = query.where(em.getCriteriaBuilder().like(root.<String>get(coluna), valor + "%"));
+		
+		List<T> list = em.createQuery(query)
+			.setFirstResult(firstResult)
+			.setMaxResults(maxResults)
+			.getResultList();
+		
+		em.close();
+		return list; 
+	}
+	
+	public List<T> listaTodosPaginada(int firstResult, int maxResults, Map<String, Object> filters) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
+		Root<T> root = query.from(classe);
+		
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		
+		List<Predicate> predicates = new ArrayList<>();
+		if (filters.get("titulo") != null)
+			predicates.add(builder.like(root.<String>get("titulo"), filters.get("titulo") + "%"));
+		if (filters.get("genero") != null)
+			predicates.add(builder.like(root.<String>get("genero"), filters.get("genero") + "%"));
+		if (filters.get("preco") != null)
+			predicates.add(builder.equal(root.<Double>get("preco"), filters.get("preco")));
+		
+		query.where(predicates.toArray(new Predicate[]{}));
+		List<T> list = em.createQuery(query)
+				.setFirstResult(firstResult)
+				.setMaxResults(maxResults)
+				.getResultList();
+			
+			em.close();
+		
+		return list;
+	}
+	
+	public int quantidadeDeElementos() {
+		EntityManager em = new JPAUtil().getEntityManager();
+        long result = (Long) em
+        		.createQuery("select count(n) from " + classe.getSimpleName() + " n")
+                .getSingleResult();
+        em.close();
+
+        return (int) result;
 	}
 
 }
