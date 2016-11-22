@@ -125,7 +125,7 @@ public class DAO<T> {
 		if (filters.get("genero") != null)
 			predicates.add(builder.like(root.<String>get("genero"), filters.get("genero") + "%"));
 		if (filters.get("preco") != null)
-			predicates.add(builder.equal(root.<Double>get("preco"), filters.get("preco")));
+			predicates.add(builder.le(root.<Double>get("preco"), Double.valueOf((filters.get("preco").toString()))));
 		
 		query.where(predicates.toArray(new Predicate[]{}));
 		List<T> list = em.createQuery(query)
