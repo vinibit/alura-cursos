@@ -91,5 +91,9 @@ public class Livro {
 	public void removerAutor(Autor autor) {
 		autores.remove(autor);
 	}
-
+	
+	@Override
+	public String toString() {
+		return titulo.substring(0, 12);
+	}
 }
