@@ -1,30 +1,41 @@
 package br.com.caelum.livraria.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import br.com.caelum.livraria.dao.DAO;
+import br.com.caelum.livraria.dao.AutorDAO;
+import br.com.caelum.livraria.dao.LivroDAO;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.LivroDataModel;
+import br.com.caelum.livraria.tx.Transactional;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class LivroBean {
-
+public class LivroBean implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private Livro livro = new Livro();
 	private Integer autorId;
 	private List<Livro> livros;
-	private LivroDataModel livroDataModel = new LivroDataModel();
-	private List<String> generos = Arrays.asList("Romance", "Drama", "Ação");
+	private List<String> generos = Arrays.asList("Romance", "Drama", "Ação", "Técnico");
+	
+	@Inject
+	private LivroDataModel livroDataModel;
+	@Inject
+	private AutorDAO autorDAO;
+	@Inject
+	private LivroDAO livroDAO;
 
 	public Livro getLivro() {
 		return livro;
@@ -44,7 +55,7 @@ public class LivroBean {
 	}
 
 	public List<Autor> getAutores() {
-		return new DAO<Autor>(Autor.class).listaTodos();
+		return autorDAO.listaTodos();
 	}
 	
 	public List<Autor> getAutoresLivro() {
@@ -52,8 +63,7 @@ public class LivroBean {
 	}
 	
 	public List<Livro> getLivros() {
-		DAO<Livro> dao = new DAO<Livro>(Livro.class);
-		if (livros == null) livros = dao.listaTodos(); 
+		if (livros == null) livros = livroDAO.listaTodos(); 
 		return livros;
 	}
 	
@@ -69,7 +79,8 @@ public class LivroBean {
 		if (!value.toString().startsWith("9"))
 			throw new ValidatorException(new FacesMessage("Valor do ISBN inválido!"));
 	}
-	 
+	
+	@Transactional
 	public void gravar() {
 		if (livro.getAutores().isEmpty()) {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -77,25 +88,25 @@ public class LivroBean {
 			return;
 		}
 		
-		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 		if (livro.getId() == null) {
-			dao.adiciona(livro);
+			livroDAO.adiciona(livro);
 		} else {
-			dao.atualiza(livro);
+			livroDAO.atualiza(livro);
 		}
-		livros = dao.listaTodos();
+		livros = livroDAO.listaTodos();
 		
 		livro = new Livro();
 	}
 
 	public void gravarAutor() {
-		Autor autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
+		Autor autor = autorDAO.buscaPorId(autorId);
 		livro.adicionaAutor(autor);
 	}
 	
+	@Transactional
 	public void remover(Livro livro) {
 		System.out.println("Removendo livro " + livro.getTitulo());
-		new DAO<Livro>(Livro.class).remove(livro);
+		livroDAO.remove(livro);
 	}
 	
 	public void removerAutorLivro(Autor autor) {
@@ -103,7 +114,7 @@ public class LivroBean {
 	}
 	
 	public void carregarPelaId() {
-		this.livro = new DAO<Livro>(Livro.class).buscaPorId(this.livro.getId());
+		this.livro = livroDAO.buscaPorId(this.livro.getId());
 		if (this.livro == null)
 			this.livro = new Livro();
 	}
