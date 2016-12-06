@@ -59,7 +59,7 @@
 						<f:selectItems value="#{livroBean.autores}" var="autor"
 							itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
 					</p:selectOneMenu>
-					<p:commandButton value="Incluir" actionListener="#{livroBean.gravarAutor}"
+					<p:commandButton value="Incluir" action="#{livroBean.gravarAutor}"
 						process="@this autor" update="autores" />
 					<p:commandLink value="ou cadastrar novo autor" action="autor?faces-redirect=true" 
 						update="@all" immediate="true" />

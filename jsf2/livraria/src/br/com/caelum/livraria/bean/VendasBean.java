@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.model.chart.Axis;
@@ -13,7 +14,7 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
-import br.com.caelum.livraria.dao.DAO;
+import br.com.caelum.livraria.dao.LivroDAO;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Venda;
 
@@ -21,6 +22,9 @@ import br.com.caelum.livraria.modelo.Venda;
 @ViewScoped
 public class VendasBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private LivroDAO livroDAO;
 
 	public BarChartModel getVendasModel() {
 		BarChartModel model = new BarChartModel();
@@ -51,7 +55,7 @@ public class VendasBean implements Serializable {
 		
 		Random ramdom = new Random();
 		
-		List<Livro> livros = new DAO<Livro>(Livro.class).listaTodos();
+		List<Livro> livros = livroDAO.listaTodos();
 		for (Livro livro : livros) {
 			int quantidade = ramdom.nextInt(500);
 			vendas.add(new Venda(livro, quantidade));
