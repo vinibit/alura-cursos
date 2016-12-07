@@ -19,18 +19,15 @@ public class LoginBean implements Serializable {
 	private Usuario usuario = new Usuario();
 	@Inject
 	private UsuarioDAO usuarioDAO;
+	@Inject
+	private FacesContext context;
 	
 	public Usuario getUsuario() {
 		return usuario;
 	}
 	
 	public String efetuaLogin() {
-	    System.out.println("Fazendo login do usuário " + this.usuario.getEmail());
-	    FacesContext context = FacesContext.getCurrentInstance();
-	    
-	    boolean existe = usuarioDAO.existe(this.usuario);
-
-	    if (existe) {
+	    if (usuarioDAO.existe(usuario)) {
 	    	context.getExternalContext().getSessionMap().put("usuarioLogado", this.usuario);
 	        return "livro?faces-redirect=true";
 	    }
@@ -41,7 +38,6 @@ public class LoginBean implements Serializable {
 	}
 	
 	public String efetuaLogout() {
-		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getSessionMap().remove("usuarioLogado");
 		return "login?faces-redirect=true";
 	}

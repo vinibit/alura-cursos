@@ -26,7 +26,7 @@ public class Livro {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dataLancamento = Calendar.getInstance();
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	private List<Autor> autores = new ArrayList<Autor>();
 
 	public List<Autor> getAutores() {
@@ -94,6 +94,6 @@ public class Livro {
 	
 	@Override
 	public String toString() {
-		return titulo.substring(0, 12);
+		return titulo;
 	}
 }

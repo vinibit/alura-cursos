@@ -1,4 +1,4 @@
-package br.com.caelum.livraria.dao;
+package br.com.caelum.livraria.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,9 +13,7 @@ import br.com.caelum.livraria.modelo.Livro;
 public class PopulaBanco {
 
 	public static void main(String[] args) {
-
 		EntityManager em = new JPAUtil().getEntityManager();
-
 		em.getTransaction().begin();
 
 		Autor assis = geraAutor("Machado de Assis");
@@ -62,7 +60,6 @@ public class PopulaBanco {
 
 		em.getTransaction().commit();
 		em.close();
-
 	}
 
 	private static Autor geraAutor(String nome) {

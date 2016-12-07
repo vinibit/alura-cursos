@@ -42,8 +42,7 @@ public class LivroBean implements Serializable {
 	}
 	
 	public void alterar(Livro livro) {
-		System.out.println("Carregando livro " + livro.getTitulo());
-		this.livro = livro;
+		this.livro = livroDAO.buscaPorId(livro.getId());
 	}
 
 	public Integer getAutorId() {
@@ -105,7 +104,6 @@ public class LivroBean implements Serializable {
 	
 	@Transactional
 	public void remover(Livro livro) {
-		System.out.println("Removendo livro " + livro.getTitulo());
 		livroDAO.remove(livro);
 	}
 	

@@ -14,6 +14,7 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
+import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.dao.LivroDAO;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Venda;
@@ -25,13 +26,17 @@ public class VendasBean implements Serializable {
 	
 	@Inject
 	private LivroDAO livroDAO;
+	@Inject
+	private VendaDAO vendaDAO;
 
 	public BarChartModel getVendasModel() {
 		BarChartModel model = new BarChartModel();
 		
 		ChartSeries series = new ChartSeries();
-		series.setLabel("Vendas 2016"); 
-		for (Venda venda : getVendas(1000)) {
+		series.setLabel("Vendas 2016");
+		
+		List<Venda> vendas = vendaDAO.todas();
+		for (Venda venda : vendas) {
 			series.set(venda.getLivro(), venda.getQuantidade());
 		}
 		model.addSeries(series);
