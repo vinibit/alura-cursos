@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import br.com.caelum.livraria.log.Log;
 import br.com.caelum.livraria.modelo.Livro;
 
 public class LivroDAO implements Serializable {
@@ -34,7 +35,8 @@ public class LivroDAO implements Serializable {
 	public void atualiza(Livro t) {
 		dao.atualiza(t);
 	}
-
+	
+	@Log
 	public List<Livro> listaTodos() {
 		return dao.listaTodos();
 	}
@@ -46,15 +48,18 @@ public class LivroDAO implements Serializable {
 	public int contaTodos() {
 		return dao.contaTodos();
 	}
-
+	
+	@Log
 	public List<Livro> listaTodosPaginada(int firstResult, int maxResults) {
 		return dao.listaTodosPaginada(firstResult, maxResults);
 	}
 
+	@Log
 	public List<Livro> listaTodosPaginada(int firstResult, int maxResults, String coluna, String valor) {
 		return dao.listaTodosPaginada(firstResult, maxResults, coluna, valor);
 	}
-
+	
+	@Log
 	public List<Livro> listaTodosPaginada(int firstResult, int maxResults, Map<String, Object> filters) {
 		return dao.listaTodosPaginada(firstResult, maxResults, filters);
 	}
