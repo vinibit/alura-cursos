@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui" >
+
+<ui:composition template="/_template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="autorId" value="#{autorBean.autor.id}" />
+		<f:viewAction action="#{autorBean.carregarPelaId}" if="#{not empty param['autorId']}" />
+	</f:metadata>
+	
+	<ui:define name="titulo">
+		<p:outputPanel>Novo Autor</p:outputPanel>
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="form">
+			<p:fieldset legend="Dados do Autor">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{autorBean.autor.nome}" 
+						required="true" requiredMessage="Nome não infomado."/>
+					<p:message id="nomeMessage" for="nome" />
+					
+					<p:outputLabel value="Email:" for="email" />
+					<p:inputText id="email" value="#{autorBean.autor.email}" 
+						required="true" requiredMessage="Email não informado." validatorMessage="Email inválido.">
+						<f:attribute name="type" value="email" />
+						<f:validateRegex pattern="([\w-\.]+)@([\w]+)((?:\.[a-z]{2,4})+)" />
+						<f:ajax event="blur" render="emailMessage" />
+					</p:inputText>
+					<p:message id="emailMessage" for="email" />
+					
+					<p:commandButton value="Gravar" action="#{autorBean.gravar}"
+						process="@form" update="@form" />
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:spacer height="2px"/>
+		</h:form>
+		<h:form id="data">
+			<p:dataList id="autores" value="#{autorBean.autores}" var="autor" type="definition">
+				<f:facet name="header">Autores</f:facet>
+				<p:commandButton action="#{autorBean.alterar(autor)}" title="Alterar"
+					update=":form" 
+					icon="fa fa-fw fa-edit"/>
+				<p:commandButton action="#{autorBean.remover(autor)}" title="Remover"
+					update="data" 
+					icon="fa fa-fw fa-remove"/> 
+				<h:outputText value="#{autor.nome}" style="display:inline-block" />
+			</p:dataList>
+		</h:form>
+	</ui:define>
+	<ui:define name="rodape">autor.xhtml</ui:define>
+</ui:composition>
+
+</html>

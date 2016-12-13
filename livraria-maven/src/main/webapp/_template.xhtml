@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head />
+
+<h:body>
+
+	<div id="cabecalho">
+		<h:graphicImage library="img" name="logo.png" />
+		
+		<h:form rendered="#{not empty usuarioLogado}">
+		
+			<p:panelGrid columns="3" layout="grid" >
+				<h:outputText value="Bem vindo, #{usuarioLogado}" />
+				
+				<p:outputLabel for="basic" value="Tema:" 
+					style="float: right;" />
+				<p:themeSwitcher id="basic" value="#{temaBean.tema}"
+					style="float: right;">
+					<f:selectItems value="#{temaBean.temas}" var="tema" itemValue="#{tema}" itemLabel="#{tema}" />
+					<f:ajax />
+				</p:themeSwitcher>
+			</p:panelGrid>
+			
+			<p:menuButton value="Menu">
+				<p:menuitem value="Livros" action="livro?faces-redirect=true" icon="fa fa-fw fa-edit"/>
+				<p:menuitem value="Autores" action="autor?faces-redirect=true" icon="fa fa-fw fa-edit" />
+				<p:menuitem value="Vendas" action="vendas?faces-redirect=true" icon="fa fa-fw fa-image" />
+				<p:separator />
+				<p:menuitem value="Sair" action="#{loginBean.efetuaLogout}" icon="fa fa-fw fa-sign-out"/>
+			</p:menuButton>
+			
+		</h:form>
+		
+		<h1><ui:insert name="titulo">Título</ui:insert></h1>
+	</div>
+
+	<div id="conteudo">
+		<p:messages id="messages" globalOnly="true" />
+		<ui:insert name="conteudo">
+		</ui:insert>
+	</div>
+	
+	<div id="rodape">
+		<span style="align: 'center'">copyright 2012</span><br />
+		<ui:insert name="rodape">
+		</ui:insert>
+	</div>
+
+</h:body>
+
+</html>
