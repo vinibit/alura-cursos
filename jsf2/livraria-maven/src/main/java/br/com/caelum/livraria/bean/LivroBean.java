@@ -79,6 +79,11 @@ public class LivroBean implements Serializable {
 			throw new ValidatorException(new FacesMessage("Valor do ISBN inválido!"));
 	}
 	
+	public void limpar() {
+		livro = new Livro();
+		autorId = null;
+	}
+	
 	@Transactional
 	public void gravar() {
 		if (livro.getAutores().isEmpty()) {
