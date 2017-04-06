@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<venda moeda="Real" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vendas.xsd" >
+    <formaPagamento>dinheiro</formaPagamento>
+    <produtos>
+	    <produto>
+	    	<nome>creme dental</nome>
+	    	<preco>4.70</preco>
+	    </produto>
+	    <produto>
+	    	<nome>sabonete</nome>
+	    	<preco>2.40</preco>
+	    </produto>   
+	    <produto>
+	    	<nome>shampoo</nome>
+	    	<preco>7.85</preco>
+	    </produto>   
+    </produtos>
+</venda>
+
