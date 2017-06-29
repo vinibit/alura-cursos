@@ -57,11 +57,13 @@ public class ItemDao {
 		return item.getTipo().equals(tipo);
 	}
 	
-	public Item quantidadeDo(String codigo) {
-		return ITENS.get(codigo);
+	public int quantidadeDo(String codigo) {
+		return obtemItem(codigo).getQuantidade();
 	}
 	
-
+	public Item obtemItem(String codigo) {
+		return ITENS.get(codigo);
+	}
 	
 	private void popularItensNoMapa() {
 		ITENS.put("MEA", new Item.Builder().comCodigo("MEA").comNome("MEAN").comTipo("Livro").comQuantidade(5).build());
@@ -75,7 +77,5 @@ public class ItemDao {
 		ITENS.put("MOG", new Item.Builder().comCodigo("MOG").comNome("Moto G").comTipo("Celular").comQuantidade(8).build());
 		ITENS.put("MXX", new Item.Builder().comCodigo("MXX").comNome("Moto MAXX").comTipo("Celular").comQuantidade(2).build());
 	}
-
-
 
 }

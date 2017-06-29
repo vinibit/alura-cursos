@@ -6,22 +6,44 @@
     <xsd:schema>
       <xsd:import namespace="http://ws.estoque.caelum.com.br/" schemaLocation="http://localhost:8080/estoquews?xsd=1"/>
     </xsd:schema>
+    <xsd:schema>
+      <xsd:import namespace="http://item.modelo.estoque.caelum.com.br/" schemaLocation="http://localhost:8080/estoquews?xsd=2"/>
+    </xsd:schema>
   </types>
-  <message name="getItems">
-    <part name="parameters" element="tns:getItems"/>
+  <message name="todosOsItens">
+    <part name="parameters" element="tns:listaItens"/>
   </message>
-  <message name="getItemsResponse">
-    <part name="parameters" element="tns:getItemsResponse"/>
+  <message name="todosOsItensResponse">
+    <part name="parameters" element="tns:itens"/>
+  </message>
+  <message name="todosOsItensFiltrados">
+    <part name="parameters" element="tns:todosOsItensFiltrados"/>
+  </message>
+  <message name="todosOsItensFiltradosResponse">
+    <part name="parameters" element="tns:todosOsItensFiltradosResponse"/>
   </message>
   <portType name="EstoqueWS">
-    <operation name="getItems">
-      <input wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/getItemsRequest" message="tns:getItems"/>
-      <output wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/getItemsResponse" message="tns:getItemsResponse"/>
+    <operation name="todosOsItens">
+      <input wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/todosOsItensRequest" message="tns:todosOsItens"/>
+      <output wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/todosOsItensResponse" message="tns:todosOsItensResponse"/>
+    </operation>
+    <operation name="todosOsItensFiltrados">
+      <input wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/todosOsItensFiltradosRequest" message="tns:todosOsItensFiltrados"/>
+      <output wsam:Action="http://ws.estoque.caelum.com.br/EstoqueWS/todosOsItensFiltradosResponse" message="tns:todosOsItensFiltradosResponse"/>
     </operation>
   </portType>
   <binding name="EstoqueWSPortBinding" type="tns:EstoqueWS">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="getItems">
+    <operation name="todosOsItens">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="todosOsItensFiltrados">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -37,15 +59,19 @@
     </port>
   </service>
 </definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8080/estoquews?xsd=1</con:url><con:content><![CDATA[<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2.4-b01.-->
-<xs:schema version="1.0" targetNamespace="http://ws.estoque.caelum.com.br/" xmlns:tns="http://ws.estoque.caelum.com.br/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="getItems" type="tns:getItems"/>
-  <xs:element name="getItemsResponse" type="tns:getItemsResponse"/>
-  <xs:complexType name="getItems">
+<xs:schema version="1.0" targetNamespace="http://ws.estoque.caelum.com.br/" xmlns:tns="http://ws.estoque.caelum.com.br/" xmlns:ns1="http://item.modelo.estoque.caelum.com.br/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://item.modelo.estoque.caelum.com.br/" schemaLocation="http://localhost:8080/estoquews?xsd=2"/>
+  <xs:element name="filtros" type="tns:filtros"/>
+  <xs:element name="itens" type="tns:itens"/>
+  <xs:element name="listaItens" nillable="true" type="xs:anyType"/>
+  <xs:element name="todosOsItensFiltrados" type="tns:todosOsItensFiltrados"/>
+  <xs:element name="todosOsItensFiltradosResponse" type="tns:todosOsItensFiltradosResponse"/>
+  <xs:complexType name="listaItens">
     <xs:sequence/>
   </xs:complexType>
-  <xs:complexType name="getItemsResponse">
+  <xs:complexType name="itens">
     <xs:sequence>
-      <xs:element name="return" type="tns:item" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="item" type="tns:item" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="item">
@@ -56,9 +82,51 @@
       <xs:element name="tipo" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/estoquews</con:endpoint></con:endpoints><con:operation id="29790f0f-1ca9-463d-a4c6-9a2debe07a69" isOneWay="false" action="" name="getItems" bindingOperationName="getItems" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="05368ec8-7394-4d82-8a47-8dfd7cedfaf2" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/estoquews</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.estoque.caelum.com.br/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <ws:getItems/>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.estoque.caelum.com.br/EstoqueWS/getItemsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+  <xs:complexType name="todosOsItensFiltrados">
+    <xs:sequence>
+      <xs:element ref="tns:filtros" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="filtros">
+    <xs:sequence>
+      <xs:element name="filtro" type="tns:filtro" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="filtro">
+    <xs:sequence>
+      <xs:element name="nome" type="xs:string" minOccurs="0"/>
+      <xs:element name="tipo" type="tns:tipoItem" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="todosOsItensFiltradosResponse">
+    <xs:sequence>
+      <xs:element name="itens" type="ns1:listaItens" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="tipoItem">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Livro"/>
+      <xs:enumeration value="Celular"/>
+      <xs:enumeration value="Tablet"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8080/estoquews?xsd=2</con:url><con:content><![CDATA[<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2.4-b01.-->
+<xs:schema version="1.0" targetNamespace="http://item.modelo.estoque.caelum.com.br/" xmlns:ns1="http://ws.estoque.caelum.com.br/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://ws.estoque.caelum.com.br/" schemaLocation="http://localhost:8080/estoquews?xsd=1"/>
+  <xs:complexType name="listaItens">
+    <xs:sequence>
+      <xs:element name="item" type="ns1:item" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/estoquews</con:endpoint></con:endpoints><con:operation id="29790f0f-1ca9-463d-a4c6-9a2debe07a69" isOneWay="false" action="" name="todosOsItens" bindingOperationName="todosOsItens" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="05368ec8-7394-4d82-8a47-8dfd7cedfaf2" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/estoquews</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.estoque.caelum.com.br/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ws:listaItens/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.estoque.caelum.com.br/EstoqueWS/getItemsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c74af463-c40f-4c88-86a5-c1d7c7699fd3" isOneWay="false" action="" name="todosOsItensFiltrados" bindingOperationName="todosOsItensFiltrados" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="affa1b74-eb14-4563-a440-77fe3da6653b" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/estoquews</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.estoque.caelum.com.br/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ws:todosOsItensFiltrados>
+         </ws:todosOsItensFiltrados>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.estoque.caelum.com.br/EstoqueWS/todosOsItensFiltradosRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
