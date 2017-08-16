@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java de filtros complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteï¿½do esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="filtros">
@@ -34,6 +34,13 @@ import javax.xml.bind.annotation.XmlType;
 public class Filtros {
 
     protected List<Filtro> filtro;
+    
+    Filtros() {
+    }
+    
+    public Filtros(List<Filtro> filtro) {
+    	this.filtro = filtro;
+    }
 
     /**
      * Gets the value of the filtro property.

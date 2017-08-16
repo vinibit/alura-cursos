@@ -36,6 +36,14 @@ public class Filtros {
 
     @XmlElement(nillable = true)
     protected List<Filtro> filtro;
+    
+    Filtros() {
+    }
+    
+    public Filtros(List<Filtro> filtro) {
+    	this.filtro = filtro;
+    }
+
 
     /**
      * Gets the value of the filtro property.

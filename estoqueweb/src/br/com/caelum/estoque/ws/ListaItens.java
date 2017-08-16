@@ -7,11 +7,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  * <p>Classe Java de listaItens complex type.
  * 
- * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
+ * <p>O seguinte fragmento do esquema especifica o conteï¿½do esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="listaItens">
@@ -29,11 +28,19 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "listaItens", propOrder = {
-    "item"
+    "items"
 })
 public class ListaItens {
 
-    protected List<Item> item;
+    protected List<Item> items;
+    
+    ListaItens() {
+    }
+    
+    public ListaItens(List<Item> items) {
+		this.items = items;
+	}
+
 
     /**
      * Gets the value of the item property.
@@ -58,10 +65,15 @@ public class ListaItens {
      * 
      */
     public List<Item> getItem() {
-        if (item == null) {
-            item = new ArrayList<Item>();
+        if (items == null) {
+            items = new ArrayList<Item>();
         }
-        return this.item;
+        return this.items;
+    }
+    
+    @Override
+    public String toString() {
+    	return getItem().toString();
     }
 
 }
