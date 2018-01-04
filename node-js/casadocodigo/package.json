@@ -1,0 +1,23 @@
+{
+  "name": "casadocodigo",
+  "version": "1.0.0",
+  "description": "mini site da casa do codigo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinibit/alura-cursos.git"
+  },
+  "author": "vini bit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinibit/alura-cursos/issues"
+  },
+  "homepage": "https://github.com/vinibit/alura-cursos#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  }
+}
