@@ -1,14 +1,9 @@
 module.exports = function (app) {
-    app.get('/produtos',function(req,res){
-        var mysql = require('mysql');
-        var connection = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "prodam01",
-            database: "casadocodigo_nodejs",
-        });
+    app.get('/produtos', function(req, res) {
+        var connection = app.infra.connectionFactory();
+        var produtosDAO = new app.infra.ProdutosDAO(connection);
 
-        connection.query('select * from produtos', function(err, results){
+        produtosDAO.lista(function(err, results) {
             res.render('produtos/lista', {lista: results});
         });
 
