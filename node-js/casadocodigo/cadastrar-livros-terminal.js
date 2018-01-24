@@ -12,14 +12,14 @@ var configuracoes = {
 };
 
  var client = http.request(configuracoes,function(res){
-    console.log(res.statusCode);
+    console.log(res.statusCode + ": " + res.statusMessage);
     res.on('data',function(body){
         console.log('Corpo: ' + body);
     });
 });
 
 var produto = {
-    titulo : 'mais sobre node',
+    titulo : '',
     descricao: 'node, javascript e um pouco sobre http',
     preco: '100'
 }

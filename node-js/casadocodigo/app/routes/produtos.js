@@ -20,12 +20,30 @@ module.exports = function (app) {
     });
 
     app.get('/produtos/form', function (req, res) {
-        res.render('produtos/form');
+        res.render('produtos/form', {validacoes: {}, produto: {}});
     });
     
     app.post('/produtos', function (req, res){ 
         var produto = req.body;
 
+        req.assert('titulo', 'Título é obrigatório').notEmpty();
+        req.assert('preco', 'Valor inválido').isFloat();
+        
+        var errors = req.validationErrors();
+        if (errors) {
+            res
+                .status(400)
+                .format({
+                    html: function() {
+                        res.render('produtos/form', {validacoes: errors, produto: produto});
+                    },
+                    json: function() {
+                        res.json(errors);
+                    }
+                });
+            return;
+        }
+        
         var connection = app.infra.connectionFactory();
         var produtosDAO = new app.infra.ProdutosDAO(connection);
         produtosDAO.salva(produto, function(erros, resultado) {
