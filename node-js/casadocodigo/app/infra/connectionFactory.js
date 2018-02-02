@@ -1,11 +1,11 @@
 var mysql = require('mysql');
 
-function createDBConnection() {
+function createDBConnection(database) {
     return mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: 'prodam01',
-        database: 'casadocodigo_nodejs'
+        database: database 
     });
 }
 

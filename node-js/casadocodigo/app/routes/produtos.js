@@ -1,10 +1,16 @@
 module.exports = function (app) {
     
-    app.get('/produtos', function(req, res) {
-        var connection = app.infra.connectionFactory();
+    var database = 'casadocodigo_nodejs';
+    if (process.env.NODE_ENV == 'test') {
+        database = 'casadocodigo_nodejs_test';
+    }
+
+    app.get('/produtos', function(req, res, next) {
+        var connection = app.infra.connectionFactory(database);
         var produtosDAO = new app.infra.ProdutosDAO(connection);
 
         produtosDAO.lista(function(err, results) {
+            if (err) return next();
             res.format({
                     html: function() {
                         res.render('produtos/lista', {lista: results});
@@ -44,7 +50,7 @@ module.exports = function (app) {
             return;
         }
         
-        var connection = app.infra.connectionFactory();
+        var connection = app.infra.connectionFactory(database);
         var produtosDAO = new app.infra.ProdutosDAO(connection);
         produtosDAO.salva(produto, function(erros, resultado) {
             res.redirect('/produtos')
