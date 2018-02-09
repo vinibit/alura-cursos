@@ -3,6 +3,7 @@ var request = require('supertest')(express);
 
 describe('#ProdutosController', function() {
     
+    
     beforeEach(function(done) {
         var conn = express.infra.connectionFactory('casadocodigo_nodejs_test');
         conn.query("delete from produtos", function (err, result) {
@@ -12,7 +13,7 @@ describe('#ProdutosController', function() {
             done();
         });
         conn.end();
-    });
+    });    
 
     it('#listagem json', function(done) {
         request.get('/produtos')
