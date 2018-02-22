@@ -35,3 +35,6 @@ Thumbs.db/xml-java-master/
 
 # Node.js / NPM #
 **/node_modules/
+
+# Visual Studio Code #
+*.code-workspace
