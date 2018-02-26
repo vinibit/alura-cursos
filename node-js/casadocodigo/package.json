@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "mini site da casa do codigo",
   "main": "index.js",
+  "engines": {
+    "node": "4.1.1"
+  },
   "scripts": {
-    "start": "app",
+    "start": "node app",
     "test": "mocha"
   },
   "repository": {
