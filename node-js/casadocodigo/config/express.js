@@ -14,7 +14,6 @@ module.exports = function () {
     app.use(parser.urlencoded({extended: true}));
     app.use(parser.json());
     app.use(validator());
-
     
     load('routes', {cwd: 'app'})
         .then('infra')

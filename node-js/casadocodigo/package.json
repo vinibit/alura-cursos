@@ -4,7 +4,7 @@
   "description": "mini site da casa do codigo",
   "main": "index.js",
   "engines": {
-    "node": "4.1.1"
+    "node": "9.2.1"
   },
   "scripts": {
     "start": "node app",
