@@ -1,7 +1,7 @@
 class DateHelper {
 
     constructor () {
-        throw new Error('Instanciação inválida!');
+        throw new Error('Esta classe não pode ser instanciada.');
     }
 
     static textoParaData(texto) {
@@ -17,8 +17,7 @@ class DateHelper {
 
     static dataParaTexto(data) {
         
-        return `${data.getData()}
-            /${data.getMonth()+1}
-            /${data.getFullYear()}`;
+        //return `${data.getDate()}/${data.getMonth()+1}/${data.getFullYear()}`;
+        return data.toLocaleDateString('pt-BR');
     }
 }
