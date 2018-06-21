@@ -10,13 +10,34 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
 
-        this._lista = new ListaNegociacoes();
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
-        this._negociacoesView.update(this._lista);
+      /*   this._listaNegociacoes = new ListaNegociacoes(model => {
+            this._negociacoesView.update(model);
+        }); */
+
+        let self = this;
+
+        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
+
+            get(target, prop, receiver) {
+
+                if (['adiciona', 'esvazia'].includes(prop) && typeof(target[prop] == typeof[Function])) {
+                    return function() {
+                        
+                        console.log(`Método '${prop}' interceptado.`);
+                        Reflect.apply(target[prop], target, arguments);
+                        self._negociacoesView.update(target);
+                    }
+                }
+
+                return Reflect.get(target, prop, receiver);
+            }
+        });
+
+        this._negociacoesView = new NegociacoesView($('#negociacoesView'));        
 
         this._mensagem = new Mensagem();
         this._mensagemView = new MensagemView($('#mensagemView'));
-        this._mensagemView.update(this._mensagem);
+        
     }
 
     adiciona(event) {
@@ -28,8 +49,7 @@ class NegociacaoController {
         console.log(novaNegociacao);
         
         this._limpaForumlario();
-        this._lista.adiciona(novaNegociacao);
-        this._negociacoesView.update(this._lista);
+        this._listaNegociacoes.adiciona(novaNegociacao);
 
         this._mensagem.texto = "Negociação gravada com sucesso."
         this._mensagemView.update(this._mensagem);
@@ -51,6 +71,14 @@ class NegociacaoController {
         this._inputValor.value = "0.0";
         
         this._inputData.focus();
+    }
+
+    apaga() {
+
+        this._listaNegociacoes.esvazia();
+
+        this._mensagem.texto = 'Negociações apagadas com sucesso';
+        this._mensagemView.update(this._mensagem);
     }
 
 }
