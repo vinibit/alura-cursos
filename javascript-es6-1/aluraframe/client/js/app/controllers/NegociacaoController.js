@@ -9,50 +9,21 @@ class NegociacaoController {
         this._inputData = $('#data');
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
-
-      /*   this._listaNegociacoes = new ListaNegociacoes(model => {
-            this._negociacoesView.update(model);
-        }); */
-
-        let self = this;
-
-        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
-
-            get(target, prop, receiver) {
-
-                if (['adiciona', 'esvazia'].includes(prop) && typeof(target[prop] == typeof[Function])) {
-                    return function() {
-                        
-                        console.log(`Método '${prop}' interceptado.`);
-                        Reflect.apply(target[prop], target, arguments);
-                        self._negociacoesView.update(target);
-                    }
-                }
-
-                return Reflect.get(target, prop, receiver);
-            }
-        });
-
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));        
-
-        this._mensagem = new Mensagem();
-        this._mensagemView = new MensagemView($('#mensagemView'));
         
+        this._listaNegociacoes = new Bind(new ListaNegociacoes(), new NegociacoesView($('#negociacoesView')), 
+            'adiciona', 'esvazia');
+                
+        this._mensagem = new Bind(new Mensagem(), new MensagemView($('#mensagemView')), 
+            'texto');
     }
 
     adiciona(event) {
 
         event.preventDefault();
-
-        let data = this._inputData.value.replace(/-/g, ',');
-        let novaNegociacao = this._criaNegociacao();
-        console.log(novaNegociacao);
-        
-        this._limpaForumlario();
+        let novaNegociacao = this._criaNegociacao();                
         this._listaNegociacoes.adiciona(novaNegociacao);
-
         this._mensagem.texto = "Negociação gravada com sucesso."
-        this._mensagemView.update(this._mensagem);
+        this._limpaFormulario();
     }
 
     _criaNegociacao() {
@@ -64,7 +35,7 @@ class NegociacaoController {
         );
     }
 
-    _limpaForumlario() {
+    _limpaFormulario() {
 
         this._inputData.value = '';
         this._inputQuantidade.value = "1";
@@ -76,9 +47,7 @@ class NegociacaoController {
     apaga() {
 
         this._listaNegociacoes.esvazia();
-
         this._mensagem.texto = 'Negociações apagadas com sucesso';
-        this._mensagemView.update(this._mensagem);
     }
 
 }
